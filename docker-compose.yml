@@ -42,3 +42,6 @@ services:
 networks:
   network_public:
     external: true
+
+volumes:
+  mysql_data:
