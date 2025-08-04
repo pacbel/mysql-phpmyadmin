@@ -28,7 +28,7 @@ services:
       - network_public
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.frontend.rule=Host(`phpmyadmin.igr.org.br`)
+      - "traefik.http.routers.frontend.rule=Host(`phpmyadmin.igr.org.br`)"
       - "traefik.http.services.frontend.loadbalancer.server.port=8080"    
     environment:
       PMA_HOST: mysql
