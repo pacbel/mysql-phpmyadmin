@@ -22,6 +22,24 @@ services:
     deploy:
       replicas: 1
 
+  # SERVIÇO DE BACKUP AUTOMÁTICO
+  mysql-backup:
+    image: fradelg/mysql-cron-backup
+    networks:
+      - network_public
+    depends_on:
+      - mysql
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_USER=root
+      - MYSQL_PASS=${MYSQL_ROOT_PASSWORD}
+      - MAX_BACKUPS=7
+      - CRON_SCHEDULE=0 3 * * *
+    volumes:
+      - mysql_backups:/backup # Volume exclusivo para os arquivos .sql
+    deploy:
+      replicas: 1
+
   phpmyadmin:
     image: phpmyadmin:latest
     networks:
@@ -45,3 +63,4 @@ networks:
 
 volumes:
   mysql_data:
+  mysql_backups: 
